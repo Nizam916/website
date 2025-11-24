@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Studies - Notes, PYQs & Syllabus</title>
+    <meta name="description" content="Fast access to college notes, previous year questions, and syllabus for all semesters">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .form-hidden {
+  display: none;
+}
+
+        .login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.login-hidden {
+  display: none;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px 22px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.28);
+  position: relative;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.login-box h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.login-box label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+  width: 100%;
+  padding: 9px 10px;
+  margin-top: 4px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+.remember-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.login-link {
+  font-size: 13px;
+  color: #2563eb;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.login-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-primary,
+.btn-secondary {
+  flex: 1;
+  padding: 9px 0;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: #ff2f6d;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.login-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #EAF1FF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgb(237, 224, 224);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #4A90E2;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #4A90E2;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(1, 15, 31, 0.9), rgba(2, 8, 60, 0.9)), 
+                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1600&amp;q=80') center/cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            margin-top: 60px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s;
+        }
+
+        .cta-btn {
+            background: white;
+            color: #4A90E2;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Section Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            color: #2c3e50;
+            animation: fadeIn 0.6s;
+        }
+
+        /* Semester Grid */
+        .semester-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .semester-card {
+            background: #0A1E44;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow:inset 0 0 10px rgba(255, 255, 255, 0.03), 
+                0 12px 30px rgba(0,0,0,0.35);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 0.6s;
+        }
+
+        .semester-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.2);
+        }
+
+        .semester-card h3 {
+            color: #EDF2FF;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .semester-card ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .semester-card li {
+            padding: 0.5rem 0;
+            color: #A7B1C2;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .semester-card li:last-child {
+            border-bottom: none;
+        }
+
+        .view-btn {
+            background: linear-gradient(135deg, #4A90E2, #5B69DD);
+            color: #F9FAFB;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s;
+            width: 100%;
+        }
+
+        .view-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Recently Added */
+        .recent-list {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .recent-item {
+            padding: 1rem;
+            border-left: 4px solid #4A90E2;
+            margin-bottom: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .recent-item:hover {
+            background: #e8f4f8;
+        }
+
+        .new-tag {
+            background: #ff6b6b;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Download Section */
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .download-card {
+            background: linear-gradient(135deg, #4A90E2, #5B69DD);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .download-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .download-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .download-card h3 {
+            font-size: 1.5rem;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #4A90E2;
+        }
+
+        .search-results {
+            margin-top: 2rem;
+            display: none;
+        }
+
+        /* Links Grid */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .link-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .link-item:hover {
+            transform: translateY(-5px);
+            color: #4A90E2;
+        }
+
+        .link-item i {
+            font-size: 2rem;
+            color: #4A90E2;
+            margin-bottom: 0.5rem;
+        }
+
+        /* About Section */
+        .about-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin: 1rem 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #4A90E2;
+        }
+        .developer-box {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    justify-content: center; /* center horizontally */
+    margin-top: 20px;
+}
+
+.dev-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #e8edf5;
+    padding: 8px;
+}
+
+.dev-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.dev-role {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: -4px;
+}
+
+
+        .social-icons {
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #4A90E2;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Login / Signup Overlay -->
+<div id="login-overlay" class="login-overlay login-hidden">
+  <div class="login-box">
+    <button id="login-close" class="login-close">&times;</button>
+
+    <!-- LOGIN FORM -->
+    <div id="login-section">
+      <h2>Login to Continue</h2>
+
+      <form id="login-form">
+        <label>
+          Email or Register Number
+          <input type="text" id="login-username" required />
+        </label>
+
+        <label>
+          Password
+          <input type="password" id="login-password" required />
+        </label>
+
+        <label class="remember-row">
+          <input type="checkbox" id="remember-me" />
+          Remember me
+        </label>
+
+        <a href="#" class="login-link">Forgot Password?</a>
+
+        <div class="login-actions">
+          <button type="submit" class="btn-primary">Login</button>
+          <button type="button" id="open-signup" class="btn-secondary">Sign Up</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- SIGNUP FORM -->
+    <div id="signup-section" class="form-hidden">
+      <h2>Create an Account</h2>
+
+      <form id="signup-form">
+        <label>
+          First Name
+          <input type="text" id="signup-firstname" required />
+        </label>
+
+        <label>
+          Last Name
+          <input type="text" id="signup-lastname" required />
+        </label>
+
+        <label>
+          Email or Register Number
+          <input type="text" id="signup-username" required />
+        </label>
+
+        <label>
+          Create Password
+          <input type="password" id="signup-password" required minlength="6" />
+        </label>
+
+        <label>
+          Confirm Password
+          <input type="password" id="signup-confirm-password" required minlength="6" />
+        </label>
+
+        <div class="login-actions">
+          <button type="submit" class="btn-primary">Sign Up</button>
+          <button type="button" id="back-to-login" class="btn-secondary">Back to Login</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo"><i class="fa-solid fa-graduation-cap"></i> College Studies</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#notes">Notes</a></li>
+                <li><a href="#pyqs">PYQs</a></li>
+                <li><a href="#syllabus">Syllabus</a></li>
+                <li><a href="#contact">Contact</a></li>
+                 <li><a href="#" id="logout-btn">Logout</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            
+            <h1>Fast Access to All Notes & Previous Year Questions</h1>
+            <p>Your one-stop solution for exam preparation</p>
+            <a href="#" class="cta-btn" id="get-started">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Select Semester Section -->
+    <section class="container" id="notes">
+        <h2 class="section-title"><i class="fa-solid fa-laptop-file"></i> Select Your Semester</h2>
+        <div class="semester-grid">
+            <div class="semester-card">
+                <h3>Semester 1</h3>
+                <ul>
+                    <li>Technical English</li>
+                    <li>Engineering Mechanics</li>
+                    <li>Semiconductor Physics</li>
+                    <li>Biology for Engineers</li>
+                </ul>
+               <a href="sem1.html">
+                 <button class="view-btn">View Notes</button>
+               </a>
+            </div>
+            <div class="semester-card">
+                <h3>Semester 2</h3>
+                <ul>
+                    <li>Engineering Chemistry</li>
+                    <li>Calculus and Linear Algebra</li>
+                    <li>Engineering Graphics</li>
+                    <li>Programming in C</li>
+                </ul>
+                <a href="sem2.html">
+                    <button class="view-btn">View Notes</button>
+                </a>
+            </div>
+            <div class="semester-card">
+                <h3>Semester 3</h3>
+                <ul>
+                    <li>Digital Electronics</li>
+                    <li>Object Oriented Programming</li>
+                    <li>Computer Organization</li>
+                    <li>Python Programming</li>
+                </ul>
+                <a href="sem3.html">
+                     <button class="view-btn">View Notes</button>
+                </a>
+            </div>
+            <div class="semester-card">
+                <h3>Semester 4</h3>
+                <ul>
+                    <li>Operating Systems</li>
+                    <li>Database Information Systems</li>
+                    <li>Software Engineering</li>
+                    <li>IOT Programming</li>
+                </ul>
+                <a href="sem4.html">
+                    <button class="view-btn">View Notes</button>
+                </a>
+            </div>
+            <div class="semester-card">
+                <h3>Semester 5</h3>
+                <ul>
+                    <li>Java Programming</li>
+                    <li>Network and Communication</li>
+                    <li>Data Visualization Techniques</li>
+                    <li>Compiler Design</li>
+                </ul>
+                <a href="sem5.html">
+                    <button class="view-btn">View Notes</button>
+                </a>
+                
+            </div>
+            <div class="semester-card">
+                <h3>Semester 6</h3>
+                <ul>
+                    <li>Artificial Intelligence</li>
+                    <li>Cyber Security</li>
+                    <li>Mobile App Development</li>
+                    <li>IoT & Applications</li>
+                </ul>
+                <button class="view-btn" onclick="alert('Semester will be soon Updated')">View Notes</button>
+            </div>
+                        <div class="semester-card">
+                <h3>Semester 7</h3>
+                <ul>
+                    <li>Artificial Intelligence</li>
+                    <li>Cyber Security</li>
+                    <li>Mobile App Development</li>
+                    <li>IoT & Applications</li>
+                </ul>
+                <button class="view-btn" onclick="alert('Semester 7 will be soon Updated')">View Notes</button>
+            </div> 
+                        <div class="semester-card">
+                <h3>Semester 8</h3>
+                <ul>
+                    <li>Artificial Intelligence</li>
+                    <li>Cyber Security</li>
+                    <li>Mobile App Development</li>
+                    <li>IoT & Applications</li>
+                </ul>
+                <button class="view-btn" onclick="alert('Semester 8 will be soon Updated')">View Notes</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recently Added -->
+    <section class="container">
+        <h2 class="section-title">🆕 Recently Added Notes</h2>
+        <div class="recent-list">
+            <div class="recent-item">
+                <span>DBMS PYQs (2019–2024) Uploaded</span>
+                <span class="new-tag">NEW</span>
+            </div>
+            <div class="recent-item">
+                <span>C++ Unit 3 Notes Added</span>
+                <span class="new-tag">NEW</span>
+            </div>
+            <div class="recent-item">
+                <span>Operating Systems Complete Notes</span>
+                <span class="new-tag">NEW</span>
+            </div>
+            <div class="recent-item">
+                <span>Machine Learning Lab Manual Updated</span>
+                <span class="new-tag">NEW</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="container" id="pyqs">
+        <h2 class="section-title">📥 Quick Download</h2>
+        <div class="download-grid">
+            <a href="#" class="download-card">
+                <i class="fas fa-book"></i>
+                <h3>Download Notes</h3>
+                <p>Access all semester notes</p>
+            </a>
+            <a href="#" class="download-card">
+                <i class="fas fa-file-alt"></i>
+                <h3>Download PYQs</h3>
+                <p>Previous year question papers</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="container">
+        <h2 class="section-title">🔍 Search Any Subject or Topic</h2>
+        <div class="search-container">
+            <input type="text" class="search-bar" id="searchBar" placeholder="Search by subject, topic, or semester...">
+        </div>
+        <div class="search-results" id="searchResults">
+            <!-- Results will appear here -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="container">
+        <h2 class="section-title">📖 About College Studies</h2>
+        <div class="about-content">
+            <p>This website provides quick access to Notes, PYQs, and Syllabus for students of our college. Built to simplify exam preparation and save time. All resources are organized by semester and subject for easy navigation.</p>
+            <!-- <p style="margin-top: 1rem; font-style: italic;">Created with ❤️ for students, by students</p> -->
+             <div class="developer-box">
+    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" class="dev-icon" alt="">
+    
+    <div>
+        <p class="dev-name">Developed by Md Nizamuddin</p>
+        <p class="dev-role">3rd Year CSE Student</p>
+    </div>
+</div>
+
+        </div>
+    </section>
+
+    <!-- Important Links -->
+    <section class="container" id="syllabus">
+        <h2 class="section-title">🔗 Important Resources</h2>
+        <div class="links-grid">
+            <a href="#" class="link-item">
+                <i class="fas fa-clock"></i>
+                <p>Time Table</p>
+            </a>
+            <a href="#" class="link-item">
+                <i class="fas fa-flask"></i>
+                <p>Lab Manuals</p>
+            </a>
+            <a href="#" class="link-item">
+                <i class="fas fa-bell"></i>
+                <p>Exam Notifications</p>
+            </a>
+            <a href="#" class="link-item">
+                <i class="fas fa-tasks"></i>
+                <p>Assignments</p>
+            </a>
+            <a href="#" class="link-item">
+                <i class="fas fa-calendar"></i>
+                <p>Academic Calendar</p>
+            </a>
+            <a href="#" class="link-item">
+                <i class="fas fa-book-open"></i>
+                <p>Syllabus</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <p>&copy; 2025 College Studies. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Disclaimer</a>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/ii.nizam.ii/?next=%2F"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/md-nizamuddin-43a0a8296/"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+    </footer>
+    <script>
+  const API_BASE = "https://portfolio-backend-lxrz.onrender.com"; // backend base URL
+  const getStartedBtn   = document.getElementById('get-started');
+  const loginOverlay    = document.getElementById('login-overlay');
+  const loginClose      = document.getElementById('login-close');
+
+  const loginSection    = document.getElementById('login-section');
+  const signupSection   = document.getElementById('signup-section');
+
+  const loginForm       = document.getElementById('login-form');
+  const signupForm      = document.getElementById('signup-form');
+
+  const openSignupBtn   = document.getElementById('open-signup');
+  const backToLoginBtn  = document.getElementById('back-to-login');
+
+  function isLoggedIn() {
+    return localStorage.getItem('loggedIn') === '1';
+  }
+
+  function openLogin() {
+    if (!loginOverlay) return;
+    loginOverlay.classList.remove('login-hidden');
+    showLogin();
+  }
+
+  function closeLogin() {
+    if (!loginOverlay) return;
+    loginOverlay.classList.add('login-hidden');
+  }
+
+  function showLogin() {
+    loginSection.classList.remove('form-hidden');
+    signupSection.classList.add('form-hidden');
+  }
+
+  function showSignup() {
+    signupSection.classList.remove('form-hidden');
+    loginSection.classList.add('form-hidden');
+  }
+
+  function goToNotes() {
+    const notesSection = document.querySelector('#notes');
+    if (notesSection) {
+      notesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // GET STARTED behavior
+  if (getStartedBtn) {
+    getStartedBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      if (isLoggedIn()) {
+        goToNotes();
+      } else {
+        openLogin();
+      }
+    });
+  }
+
+  // Close (X)
+  if (loginClose) {
+    loginClose.addEventListener('click', function () {
+      closeLogin();
+    });
+  }
+
+  // Open Signup from Login
+  if (openSignupBtn) {
+    openSignupBtn.addEventListener('click', function () {
+      showSignup();
+    });
+  }
+
+  // Back to Login from Signup
+  if (backToLoginBtn) {
+    backToLoginBtn.addEventListener('click', function () {
+      showLogin();
+    });
+  }
+
+  // Login submit
+  if (loginForm) {
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const user = document.getElementById('login-username').value.trim();
+      const pass = document.getElementById('login-password').value.trim();
+
+      if (!user || !pass) {
+        alert('Please enter both username and password.');
+        return;
+      }
+
+      // Basic fake auth
+      localStorage.setItem('loggedIn', '1');
+
+      closeLogin();
+      goToNotes();
+    });
+  }
+
+  // Signup submit
+  if (signupForm) {
+    signupForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const first = document.getElementById('signup-firstname').value.trim();
+      const last  = document.getElementById('signup-lastname').value.trim();
+      const user  = document.getElementById('signup-username').value.trim();
+      const pass1 = document.getElementById('signup-password').value.trim();
+      const pass2 = document.getElementById('signup-confirm-password').value.trim();
+
+      if (!first || !last || !user || !pass1 || !pass2) {
+        alert('Please fill all fields.');
+        return;
+      }
+
+      if (pass1 !== pass2) {
+        alert('Passwords do not match.');
+        return;
+      }
+
+      if (pass1.length < 6) {
+        alert('Password must be at least 6 characters.');
+        return;
+      }
+
+      // Fake "account creation"
+      localStorage.setItem('loggedIn', '1');
+      localStorage.setItem('userFirstName', first);
+
+      alert('Account created successfully. You are now logged in.');
+
+      closeLogin();
+      goToNotes();
+    });
+  }
+
+  // Click outside closes overlay
+  if (loginOverlay) {
+    loginOverlay.addEventListener('click', function (e) {
+      if (e.target === loginOverlay) {
+        closeLogin();
+      }
+    });
+           // LOGOUT BUTTON
+const logoutBtn = document.getElementById('logout-btn');
+
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Clear login state
+        localStorage.removeItem('loggedIn');
+
+        // Optional: clear fields
+        localStorage.removeItem('username');
+
+        alert("You have been logged out.");
+
+        // Redirect back to homepage
+        window.location.href = "#home";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+  }
+</script>
+
+  // Close button (X)
+  if (loginClose) {
+    loginClose.addEventListener('click', function () {
+      closeLogin();
+    });
+  }
+
+  // Submit login form
+  if (loginForm) {
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const user = document.getElementById('login-username').value.trim();
+      const pass = document.getElementById('login-password').value.trim();
+
+      if (!user || !pass) {
+        alert('Please enter both username and password.');
+        return;
+      }
+
+      // TODO: real validation/backend if you want
+      // For now, any non-empty input logs the user in
+      localStorage.setItem('loggedIn', '1');
+
+      closeLogin();
+
+      const notesSection = document.querySelector('#notes');
+      if (notesSection) {
+        notesSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
+  // OPTIONAL: click outside the box closes the overlay
+  loginOverlay.addEventListener('click', function (e) {
+    if (e.target === loginOverlay) {
+      closeLogin();
+    }
+  });
+</script>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Search functionality
+        const searchBar = document.getElementById('searchBar');
+        const searchResults = document.getElementById('searchResults');
+
+        const subjects = [
+            'Advanced Calculus and Complex Analysis','Technical English','Basic Civil and Mechanical Engineering',
+            'Engineering Mechanics','Biology for Engineers','Semiconductor Physics','Employability Skills and Practices',
+            'Programming for Problem Solving','Engineering Chemistry','Social and Environmental Engineering','Engineering Graphics and Design',
+            'Basic Electrical and Electronics Engineering','Calculus and Linear Algebra',
+            'Programming for Data Structure and Algorithm','Python Programming','Computer Organization and Architecture',
+            'Object Oriented Programming','Management Principles for Engineer','Digital Electronics','Transformation and Boundary Value Problems'
+        ];
+
+        searchBar.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            if (query.length > 0) {
+                const filtered = subjects.filter(subject => 
+                    subject.toLowerCase().includes(query)
+                );
+                if (filtered.length > 0) {
+                    searchResults.style.display = 'block';
+                    searchResults.innerHTML = filtered.map(subject => 
+                        `<div class="recent-item">${subject}</div>`
+                    ).join('');
+                } else {
+                    searchResults.style.display = 'block';
+                    searchResults.innerHTML = '<div class="recent-item">No results found</div>';
+                }
+            } else {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    </script>
+<<<<<<< HEAD:index.html
+=======
+    <script>
+  const form = document.getElementById("contactForm");
+  const emailInput = document.getElementById("contactEmail");
+  const messageInput = document.getElementById("contactMessage");
+  const statusEl = document.getElementById("contactStatus");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault(); // stop normal form submit
+
+    const email = emailInput.value.trim();
+    const message = messageInput.value.trim();
+
+    // our own validation
+    if (!email || !message) {
+      statusEl.textContent = "Email and message are required.";
+      return;
+    }
+
+    statusEl.textContent = "Sending...";
+
+    try {
+      const res = await fetch("https://portfolio-backend-lxrz.onrender.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: "Website user",
+          email,
+          message,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        statusEl.textContent = data.error || "Something went wrong.";
+        return;
+      }
+
+      statusEl.textContent = "Message sent successfully!";
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = "Network error. Is backend running?";
+    }
+  });
+</script>
+
+</body>
+</html>

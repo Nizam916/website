@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semester 1 — Notes, PYQs & Syllabus</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+             background:  /* linear-gradient(180deg,
+    rgba(1, 15, 31, 1),
+    rgba(2, 8, 60, 1), */
+    #EAF1FF;
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .breadcrumb a {
+            color: #ff2f6d;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: #d91f57;
+        }
+
+        .breadcrumb span {
+            color: #666;
+            margin: 0 8px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 30px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .subject-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .subject-card h3 {
+            color: #2d3748;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .subject-info {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f7fafc;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-notes {
+            background: linear-gradient(135deg, #4A90E2, #5B69DD);
+            color: white;
+        }
+
+        .btn-notes:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-pyqs {
+            background: linear-gradient(135deg, #4A90E2, #5B69DD);
+            color: white;
+        }
+
+        .btn-pyqs:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 47, 109, 0.4);
+        }
+
+        .btn-syllabus {
+            background: linear-gradient(135deg, #4A90E2, #5B69DD);
+            color: white;
+        }
+
+        .btn-syllabus:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .back-button-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: #ff2f6d;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            background: #ff2f6d;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+            }
+
+            .download-btn {
+                width: 100%;
+                min-width: auto;
+            }
+
+            body {
+                padding: 15px;
+            }
+
+            .header {
+                padding: 25px 20px;
+            }
+
+            .subject-card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .breadcrumb {
+                font-size: 12px;
+                padding: 12px 18px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Semester 1</h1>
+            <p>Notes, Previous Year Questions & Syllabus</p>
+        </div>
+
+        <!-- Subjects Grid -->
+        <div class="subjects-grid">
+            <!-- Subject 1: Technical English -->
+            <div class="subject-card">
+                <h3>Technical English</h3>
+                <div class="subject-info">
+                    Last updated: November 2024
+                </div>
+                <div class="download-buttons">
+                    <a href="#" class="download-btn btn-notes">Download Notes</a>
+                    <a href="#" class="download-btn btn-pyqs">Download PYQs</a>
+                    <a href="#" class="download-btn btn-syllabus">Download Syllabus</a>
+                </div>
+            </div>
+
+            <!-- Subject 2: Advanced Calculus and Complex Analysis -->
+            <div class="subject-card">
+                <h3>Advanced Calculus and Complex Analysis</h3>
+                <div class="subject-info">
+                    Last updated: November 2024
+                </div>
+                <div class="download-buttons">
+                    <a href="https://drive.google.com/drive/folders/1dBqNk0o0Vfc9BqLWm1nksaGQohemvkpr?usp=sharing" class="download-btn btn-notes">Download Notes</a>
+                    <a href="#" class="download-btn btn-pyqs">Download PYQs</a>
+                    <a href="#" class="download-btn btn-syllabus">Download Syllabus</a>
+                </div>
+            </div>
+
+            <!-- Subject 3: Basic Civil and Mechanical Engineering -->
+            <div class="subject-card">
+                <h3>Basic Civil and Mechanical Engineering</h3>
+                <div class="subject-info">
+                    Last updated: November 2024
+                </div>
+                <div class="download-buttons">
+                    <a href="#" class="download-btn btn-notes">Download Notes</a>
+                    <a href="#" class="download-btn btn-pyqs">Download PYQs</a>
+                    <a href="#" class="download-btn btn-syllabus">Download Syllabus</a>
+                </div>
+            </div>
+
+            <!-- Subject 4: Engineering Mechanics -->
+            <div class="subject-card">
+                <h3>Engineering Mechanics</h3>
+                <div class="subject-info">
+                    Last updated: November 2024
+                </div>
+                <div class="download-buttons">
+                    <a href="#" class="download-btn btn-notes">Download Notes</a>
+                    <a href="#" class="download-btn btn-pyqs">Download PYQs</a>
+                    <a href="#" class="download-btn btn-syllabus">Download Syllabus</a>
+                </div>
+            </div>
+
+            <!-- Subject 5: Biology for Engineers -->
+            <div class="subject-card">
+                <h3>Biology for Engineers</h3>
+                <div class="subject-info">
+                    Last updated: November 2024
+                </div>
+                <div class="download-buttons">
+                    <a href="#" class="download-btn btn-notes">Download Notes</a>
+                    <a href="#" class="download-btn btn-pyqs">Download PYQs</a>
+                    <a href="#" class="download-btn btn-syllabus">Download Syllabus</a>
+                </div>
+            </div>
+
+            <!-- Subject 6: Semiconductor Physics -->
+            <div class="subject-card">
+                <h3>Semiconductor Physics</h3>
+                <div class="subject-info">
+                    Last updated: November 2024
+                </div>
+                <div class="download-buttons">
+                    <a href="#" class="download-btn btn-notes">Download Notes</a>
+                    <a href="#" class="download-btn btn-pyqs">Download PYQs</a>
+                    <a href="#" class="download-btn btn-syllabus">Download Syllabus</a>
+                </div>
+            </div>
+
+            <!-- Subject 7: Employability Skills and Practices -->
+            <div class="subject-card">
+                <h3>Employability Skills and Practices</h3>
+                <div class="subject-info">
+                    Last updated: November 2024
+                </div>
+                <div class="download-buttons">
+                    <a href="#" class="download-btn btn-notes">Download Notes</a>
+                    <a href="#" class="download-btn btn-pyqs">Download PYQs</a>
+                    <a href="#" class="download-btn btn-syllabus">Download Syllabus</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="back-button-container">
+            <a href="index.html#notes" class="back-btn">← Back to Semesters</a>
+        </div>
+    </div>
+</body>
+</html>
