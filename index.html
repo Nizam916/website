@@ -848,6 +848,13 @@
 
     <!-- Footer -->
     <footer id="contact">
+      <form id="contactForm" class="contact-form">
+  <input type="email" id="contactEmail" placeholder="Your Email" required />
+  <textarea id="contactMessage" placeholder="Your Message" required></textarea>
+  <button type="submit">Send</button>
+  <p id="contactStatus"></p>
+</form>
+
         <p>&copy; 2025 College Studies. All Rights Reserved.</p>
         <div class="footer-links">
             <a href="#">About</a>
@@ -877,8 +884,9 @@
   const backToLoginBtn  = document.getElementById('back-to-login');
 
   function isLoggedIn() {
-    return localStorage.getItem('loggedIn') === '1';
-  }
+    return !!localStorage.getItem('token');
+}
+
 
   function openLogin() {
     if (!loginOverlay) return;
@@ -920,6 +928,72 @@
       }
     });
   }
+  if (loginForm) {
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("login-username").value.trim();
+    const password = document.getElementById("login-password").value.trim();
+
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.message || "Login failed");
+        return;
+      }
+
+      localStorage.setItem("token", data.token);
+
+      closeLogin();
+      goToNotes();
+    } catch (err) {
+      alert("Network error");
+    }
+  });
+}
+if (signupForm) {
+  signupForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const firstname = document.getElementById("signup-firstname").value.trim();
+    const lastname  = document.getElementById("signup-lastname").value.trim();
+    const email     = document.getElementById("signup-username").value.trim();
+    const password  = document.getElementById("signup-password").value.trim();
+
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstname,
+          lastname,
+          email,
+          password
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        alert(data.message || "Signup failed");
+        return;
+      }
+
+      alert("Signup successful! Please login.");
+      showLogin();
+
+    } catch (err) {
+      alert("Network error");
+    }
+  });
+}
+
+
 
   // Close (X)
   if (loginClose) {
@@ -942,64 +1016,6 @@
     });
   }
 
-  // Login submit
-  if (loginForm) {
-    loginForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const user = document.getElementById('login-username').value.trim();
-      const pass = document.getElementById('login-password').value.trim();
-
-      if (!user || !pass) {
-        alert('Please enter both username and password.');
-        return;
-      }
-
-      // Basic fake auth
-      localStorage.setItem('loggedIn', '1');
-
-      closeLogin();
-      goToNotes();
-    });
-  }
-
-  // Signup submit
-  if (signupForm) {
-    signupForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const first = document.getElementById('signup-firstname').value.trim();
-      const last  = document.getElementById('signup-lastname').value.trim();
-      const user  = document.getElementById('signup-username').value.trim();
-      const pass1 = document.getElementById('signup-password').value.trim();
-      const pass2 = document.getElementById('signup-confirm-password').value.trim();
-
-      if (!first || !last || !user || !pass1 || !pass2) {
-        alert('Please fill all fields.');
-        return;
-      }
-
-      if (pass1 !== pass2) {
-        alert('Passwords do not match.');
-        return;
-      }
-
-      if (pass1.length < 6) {
-        alert('Password must be at least 6 characters.');
-        return;
-      }
-
-      // Fake "account creation"
-      localStorage.setItem('loggedIn', '1');
-      localStorage.setItem('userFirstName', first);
-
-      alert('Account created successfully. You are now logged in.');
-
-      closeLogin();
-      goToNotes();
-    });
-  }
-
   // Click outside closes overlay
   if (loginOverlay) {
     loginOverlay.addEventListener('click', function (e) {
@@ -1015,7 +1031,7 @@ if (logoutBtn) {
         e.preventDefault();
 
         // Clear login state
-        localStorage.removeItem('loggedIn');
+        localStorage.removeItem('token');
 
         // Optional: clear fields
         localStorage.removeItem('username');
@@ -1028,47 +1044,6 @@ if (logoutBtn) {
     });
 }
   }
-</script>
-
-  // Close button (X)
-  if (loginClose) {
-    loginClose.addEventListener('click', function () {
-      closeLogin();
-    });
-  }
-
-  // Submit login form
-  if (loginForm) {
-    loginForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const user = document.getElementById('login-username').value.trim();
-      const pass = document.getElementById('login-password').value.trim();
-
-      if (!user || !pass) {
-        alert('Please enter both username and password.');
-        return;
-      }
-
-      // TODO: real validation/backend if you want
-      // For now, any non-empty input logs the user in
-      localStorage.setItem('loggedIn', '1');
-
-      closeLogin();
-
-      const notesSection = document.querySelector('#notes');
-      if (notesSection) {
-        notesSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  }
-
-  // OPTIONAL: click outside the box closes the overlay
-  loginOverlay.addEventListener('click', function (e) {
-    if (e.target === loginOverlay) {
-      closeLogin();
-    }
-  });
 </script>
 
     <script>
@@ -1128,56 +1103,6 @@ if (logoutBtn) {
             });
         });
     </script>
-<<<<<<< HEAD:index.html
-=======
-    <script>
-  const form = document.getElementById("contactForm");
-  const emailInput = document.getElementById("contactEmail");
-  const messageInput = document.getElementById("contactMessage");
-  const statusEl = document.getElementById("contactStatus");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault(); // stop normal form submit
-
-    const email = emailInput.value.trim();
-    const message = messageInput.value.trim();
-
-    // our own validation
-    if (!email || !message) {
-      statusEl.textContent = "Email and message are required.";
-      return;
-    }
-
-    statusEl.textContent = "Sending...";
-
-    try {
-      const res = await fetch("https://portfolio-backend-lxrz.onrender.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: "Website user",
-          email,
-          message,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        statusEl.textContent = data.error || "Something went wrong.";
-        return;
-      }
-
-      statusEl.textContent = "Message sent successfully!";
-      form.reset();
-    } catch (err) {
-      console.error(err);
-      statusEl.textContent = "Network error. Is backend running?";
-    }
-  });
-</script>
 
 </body>
 </html>
